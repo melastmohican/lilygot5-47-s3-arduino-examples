@@ -16,6 +16,8 @@ Six independent folders; two display libraries:
 
 > **Not in this repository:** `OWM-Weather/` (port of David Bird's OpenWeatherMap sketch) is kept out because the upstream code has no license ("all rights reserved"). The section below describes the local port only.
 
+> **Licenses:** the vendor examples in `LilyGo/` are copied from [LilyGo-EPD47](https://github.com/Xinyuan-LilyGO/LilyGo-EPD47), which is GPL-3.0; the license text is in [LilyGo/LICENSE](LilyGo/LICENSE). The other folders have no license of their own yet. Lucide icons in `OpenMeteo-Weather/icons/` are ISC (see `LICENSE-lucide.txt`).
+
 ## The board
 
 ![Back of the LilyGo T5 4.7" ESP32-S3 board, revision V2.4](images/board-back-v2.4.jpg)
@@ -81,7 +83,7 @@ Port of [`OWM_EPD47_epaper_v2.5.ino`](https://github.com/markbirss/LilyGo-EPD-4-
 
 Setup (in `OWM-Weather/`): copy `secret.h.example` to `secret.h`, then set WiFi, your OpenWeatherMap API key, city, timezone and units. Sleep and wake hours are at the top of `OWM-Weather.ino`.
 
-**Licensing:** the upstream repo has no license file, and the sketch header says "Copyright (c) David Bird 2021. All rights to this software are reserved." The header is kept unchanged, as in LilyGo's own fork. This port has no license of its own; do not redistribute it without checking with the original author. The `opensans*b.h` fonts are bitmap conversions of Open Sans, which is open-licensed (Apache 2.0 / OFL depending on version).
+**Licensing:** David Bird's terms ([Licence.txt](https://github.com/G6EJD/ESP32-e-Paper-Weather-Display/blob/master/Licence.txt)) reserve all rights: personal, non-commercial use only, and no distribution without his written permission. The sketch header ("Copyright (c) David Bird 2021. All rights to this software are reserved.") is kept unchanged. This port has no license of its own and is not published: `OWM-Weather/` is gitignored in the GitHub repository. The `opensans*b.h` fonts are bitmap conversions of Open Sans, which is open-licensed (Apache 2.0 / OFL depending on version).
 
 Changes from upstream:
 
