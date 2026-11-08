@@ -1,0 +1,32 @@
+--- a/src/FastEPD.h	2026-11-06 23:50:43
++++ b/src/FastEPD.h	2026-11-06 23:50:44
+@@ -87,6 +87,7 @@
+ #endif // __LINUX__
+     BB_PANEL_IT8951,
+     BB_PANEL_SENSORIA_C5,
++    BB_PANEL_LILYGO_T5_47_S3, // original LilyGo T5 4.7" ESP32-S3 (ED047TC1, 74HC595 control)
+     BB_PANEL_CUSTOM,
+     BB_PANEL_VIRTUAL,
+     BB_PANEL_COUNT
+--- a/src/FastEPD.inl	2026-11-06 23:50:44
++++ b/src/FastEPD.inl	2026-11-06 23:50:44
+@@ -223,6 +223,11 @@
+     // ioCL, ioPWR_Good, ioSDA, ioSCL, ioShiftSTR/Wakeup, ioShiftMask/vcom, ioDCDummy, graymatrix, sizeof(graymatrix), iLinePadding
+ {1280, 720, 40000000, BB_PANEL_FLAG_MIRROR_X, {8,23,10,9,24,25,26,27}, 8, 26, 0, 5, 4, 0, 2,
+     3, 0, 7, 6, 0, 0, 0, u8Ink5V2Matrix, sizeof(u8Ink5V2Matrix), 16, -1600}, // BB_PANEL_SENSORIA_C5
++    // LilyGo T5 4.7" ESP32-S3 (original, not the S3-Pro). Pins from LilyGo-EPD47 ed047tc1.h:
++    // data D0..D7 = 8,1,2,3,4,5,6,7; CKV=38; STH(XSTL)=40; CKH(XCL)=41;
++    // shift register: DATA=13, CLK=12, STR=0. GPIO46 is unused (LCD driver dummy DC pin).
++    {960, 540, 10000000, BB_PANEL_FLAG_SLOW_SPH, {8,1,2,3,4,5,6,7}, 8, BB_NOT_USED, BB_NOT_USED, 38, 40, 0, 0,
++      41, 0, 13, 12, 0, 0, 46, u8M5Matrix, sizeof(u8M5Matrix), 16, -1600}, // BB_PANEL_LILYGO_T5_47_S3
+ };
+ 
+ //
+@@ -294,6 +299,7 @@
+ #endif // __LINUX__
+     {IT8951EinkPower, NULL, NULL, IT8951IODeInit, NULL}, // BB_PANEL_IT8951
+     {SensoriaEinkPower, SensoriaIOInit, SensoriaRowControl, SensoriaIODeInit, NULL}, // BB_PANEL_SENSORIA_C5
++    {LilyGoEinkPower, LilyGoIOInit, LilyGoRowControl, NULL, NULL}, // BB_PANEL_LILYGO_T5_47_S3 (same 74HC595 control bits as the S3-Pro)
+ };
+ 
+ uint8_t ioRegs[24]; // MCP23017 copy of I/O register state so that we can just write new bits
